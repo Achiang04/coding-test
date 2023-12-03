@@ -1,4 +1,4 @@
-const apiUrl = "http://localhost/api"; // Replace with your API endpoint
+const apiUrl = "http://localhost/coding-test/1/index.php";
 
 function login() {
   const username = document.getElementById("username").value;
@@ -12,9 +12,8 @@ function login() {
     },
     body: JSON.stringify({ username, password }),
   })
-    .then((response) => response.json())
     .then((data) => {
-      if (data.success) {
+      if (data.status == 200) {
         document.getElementById("login-form").style.display = "none";
         document.getElementById("crud-form").style.display = "block";
         document.getElementById("logout-btn").style.display = "block";
@@ -35,9 +34,8 @@ function logout() {
     },
     body: JSON.stringify({ logout: true }),
   })
-    .then((response) => response.json())
     .then((data) => {
-      if (data.success) {
+      if (data.status == 200) {
         document.getElementById("login-form").style.display = "block";
         document.getElementById("crud-form").style.display = "none";
         document.getElementById("logout-btn").style.display = "none";
@@ -48,8 +46,6 @@ function logout() {
     })
     .catch((error) => console.error("Error:", error));
 }
-
-// ... (previous code)
 
 function loadItems() {
   // Fetch items from the backend
@@ -91,9 +87,8 @@ function addItem() {
       description: itemDescription,
     }),
   })
-    .then((response) => response.json())
     .then((data) => {
-      if (data.success) {
+      if (data.status == 200) {
         loadItems(); // Refresh the item list after adding an item
         // Additional actions on successful item addition
       } else {
@@ -123,9 +118,8 @@ function editItem(itemId) {
       description: newDescription,
     }),
   })
-    .then((response) => response.json())
     .then((data) => {
-      if (data.success) {
+      if (data.status == 200) {
         loadItems(); // Refresh the item list after updating an item
         // Additional actions on successful item update
       } else {
@@ -151,9 +145,8 @@ function deleteItem(itemId) {
         id: itemId,
       }),
     })
-      .then((response) => response.json())
       .then((data) => {
-        if (data.success) {
+        if (data.status == 200) {
           loadItems(); // Refresh the item list after deleting an item
           // Additional actions on successful item deletion
         } else {
@@ -166,5 +159,3 @@ function deleteItem(itemId) {
 
 // Load items when the page is loaded
 loadItems();
-
-// ... (more code if needed)

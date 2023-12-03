@@ -19,24 +19,22 @@
           <button onclick="login()">Login</button>
         </div>
         <div id="crud-form" style="display: none">
-          <div id="crud-form" style="display: none">
-            <h2>CRUD Operations</h2>
+          <h2>CRUD Operations</h2>
 
-            <!-- Add Item Form -->
-            <div id="add-item-form">
-              <h3>Add Item</h3>
-              <label for="itemName">Name:</label>
-              <input type="text" id="itemName" required />
-              <label for="itemDescription">Description:</label>
-              <textarea id="itemDescription"></textarea>
-              <button onclick="addItem()">Add Item</button>
-            </div>
+          <!-- Add Item Form -->
+          <div id="add-item-form">
+            <h3>Add Item</h3>
+            <label for="itemName">Name:</label>
+            <input type="text" id="itemName" required />
+            <label for="itemDescription">Description:</label>
+            <input id="itemDescription"></input>
+            <button onclick="addItem()">Add Item</button>
+          </div>
 
-            <!-- List of Items -->
-            <div id="item-list">
-              <h3>Item List</h3>
-              <ul id="items"></ul>
-            </div>
+          <!-- List of Items -->
+          <div id="item-list">
+            <h3>Item List</h3>
+            <ul id="items"></ul>
           </div>
         </div>
       </div>
