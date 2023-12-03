@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['logout'])) {
 if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_SESSION['username'])) {
     // Fetch items from the database
     $items = [];
-    $sql = "SELECT * FROM `items`";
+    $sql = "SELECT * FROM items";
     $result = $mysqli->query($sql);
 
     while ($row = $result->fetch_assoc()) {

@@ -55,7 +55,13 @@ function loadItems() {
       "Content-Type": "application/json",
     },
   })
-    .then((response) => response.json())
+    .then(async (response) => {
+      try {
+        return await response.json();
+      } catch (error) {
+        console.error("Error parsing JSON response:", error);
+      }
+    })
     .then((items) => {
       const itemsList = document.getElementById("items");
       itemsList.innerHTML = "";
