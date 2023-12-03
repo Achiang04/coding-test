@@ -1,0 +1,32 @@
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+#app {
+  text-align: center;
+}
+
+#auth-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+#login-form {
+  border: 1px solid #ccc;
+  padding: 20px;
+  background-color: #fff;
+}
+
+#crud-form {
+  border: 1px solid #ccc;
+  padding: 20px;
+  background-color: #fff;
+}
