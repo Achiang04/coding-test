@@ -1,84 +1,69 @@
-<?php
-header("Access-Control-Allow-Origin: *");
-header("Content-Type: application/json; charset=UTF-8");
-session_start();
+<?php 
+   session_start();
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style.css">
+    <title>Login</title>
+</head>
+<body>
+      <div class="container">
+        <div class="box form-box">
+            <?php 
+             
+              include("php/config.php");
+              if(isset($_POST['submit'])){
+                $email = mysqli_real_escape_string($con,$_POST['email']);
+                $password = mysqli_real_escape_string($con,$_POST['password']);
 
-$mysqli = new mysqli("localhost", "root", "", "auth_crud_system");
+                $result = mysqli_query($con,"SELECT * FROM users WHERE Email='$email' AND Password='$password' ") or die("Select Error");
+                $row = mysqli_fetch_assoc($result);
 
-if ($mysqli->connect_error) {
-    die("Connection failed: " . $mysqli->connect_error);
-}
+                if(is_array($row) && !empty($row)){
+                    $_SESSION['valid'] = $row['Email'];
+                    $_SESSION['username'] = $row['Username'];
+                    $_SESSION['age'] = $row['Age'];
+                    $_SESSION['id'] = $row['Id'];
+                }else{
+                    echo "<div class='message'>
+                      <p>Wrong Username or Password</p>
+                       </div> <br>";
+                   echo "<a href='index.php'><button class='btn'>Go Back</button>";
+         
+                }
+                if(isset($_SESSION['valid'])){
+                    header("Location: home.php");
+                }
+              }else{
 
-// Login endpoint
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['username']) && isset($_POST['password'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+            
+            ?>
+            <header>Login</header>
+            <form action="" method="post">
+                <div class="field input">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" id="email" autocomplete="off" required>
+                </div>
 
-    $sql = "SELECT * FROM `users` WHERE `username`='$username' AND `password`='$password'";
-    $result = $mysqli->query($sql);
+                <div class="field input">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" autocomplete="off" required>
+                </div>
 
-    if ($result->num_rows === 1) {
-        $_SESSION['username'] = $username;
-        echo json_encode(['success' => true]);
-    } else {
-        echo json_encode(['success' => false]);
-    }
-}
-
-// Logout endpoint
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['logout'])) {
-    session_unset();
-    session_destroy();
-    echo json_encode(['success' => true]);
-}
-
-// CRUD operations for items
-if ($_SERVER["REQUEST_METHOD"] === "GET" && isset($_SESSION['username'])) {
-    // Fetch items from the database
-    $items = [];
-    $sql = "SELECT * FROM items";
-    $result = $mysqli->query($sql);
-
-    while ($row = $result->fetch_assoc()) {
-        $items[] = $row;
-    }
-
-    echo json_encode($items);
-}
-
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_SESSION['username'])) {
-    // Insert a new item
-    if (isset($_POST['addItem'])) {
-        $name = $_POST['name'];
-        $description = $_POST['description'];
-
-        $sql = "INSERT INTO `items` (`name`, `description`) VALUES ('$name', '$description')";
-        $result = $mysqli->query($sql);
-
-        echo json_encode(['success' => $result]);
-    }
-
-    // Update an item
-    if (isset($_POST['updateItem'])) {
-        $id = $_POST['id'];
-        $name = $_POST['name'];
-        $description = $_POST['description'];
-
-        $sql = "UPDATE `items` SET `name`='$name', `description`='$description' WHERE `id`='$id'";
-        $result = $mysqli->query($sql);
-
-        echo json_encode(['success' => $result]);
-    }
-
-    // Delete an item
-    if (isset($_POST['deleteItem'])) {
-        $id = $_POST['id'];
-
-        $sql = "DELETE FROM `items` WHERE `id`='$id'";
-        $result = $mysqli->query($sql);
-
-        echo json_encode(['success' => $result]);
-    }
-}
-
-$mysqli->close();
+                <div class="field">
+                    
+                    <input type="submit" class="btn" name="submit" value="Login" required>
+                </div>
+                <div class="links">
+                    Don't have account? <a href="register.php">Sign Up Now</a>
+                </div>
+            </form>
+        </div>
+        <?php } ?>
+      </div>
+</body>
+</html>
