@@ -58,6 +58,14 @@ session_start();
                     <div class="field">
                         <input type="submit" class="btn" name="submit" value="Login" required>
                     </div>
+
+                    <div class="links">
+                        you are user? <a href="index.php">Login Here</a>
+                    </div>
+
+                    <div class="links">
+                        Don't have admin account? <a href="register.php">Sign Up Now</a>
+                    </div>
                 </form>
         </div>
     <?php } ?>
