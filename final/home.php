@@ -42,7 +42,6 @@ if (!isset($_SESSION['valid'])) {
                 $res_Email = $result['Email'];
                 $res_Age = $result['Age'];
                 $res_id = $result['Id'];
-                $res_type = $result['user_type'];
             }
 
             echo "<a href='edit-profile.php?Id=$res_id'>Change Profile</a>";
@@ -57,7 +56,7 @@ if (!isset($_SESSION['valid'])) {
         <div class="main-box top">
             <div class="top">
                 <div class="box">
-                    <p>Hello <b><?php echo $res_Uname ?></b>, Welcome to <b><?php echo $res_type ?></b> page</p>
+                    <p>Hello <b><?php echo $res_Uname ?></b>, Welcome to admin page</p>
                 </div>
                 <div class="box">
                     <p>Your email is <b><?php echo $res_Email ?></b>.</p>
